@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">my_luxury_newspaper</string>
+    <string name="facebook_app_id">582308649064185</string>
+    <string name="fb_login_protocol_scheme">fb582308649064185</string>
+
+</resources>

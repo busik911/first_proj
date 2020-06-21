@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "353339718708",
+    "firebase_url": "https://luxury-newspaper.firebaseio.com",
+    "project_id": "luxury-newspaper",
+    "storage_bucket": "luxury-newspaper.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353339718708:android:735666509d22687baf9e61",
+        "android_client_info": {
+          "package_name": "com.lucianzaharia.myluxurynewspaper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "353339718708-nf4vd6vp1j7kc222sl6igs4amhf8undj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lucianzaharia.myluxurynewspaper",
+            "certificate_hash": "14daa69e236c1bf4a06fd41836273ed04fb3c769"
+          }
+        },
+        {
+          "client_id": "353339718708-k0dtla7qlvj3nvrp89egttktu7uitt7e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfoQLtrQjZNYCb7dfSXvyuUK1OznGfzL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "353339718708-k0dtla7qlvj3nvrp89egttktu7uitt7e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "353339718708-btuv2i4gqrr7dfhs3qm32salaudsjcqd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lucianzaharia.myluxurynewspaper"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>353339718708-btuv2i4gqrr7dfhs3qm32salaudsjcqd.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.353339718708-btuv2i4gqrr7dfhs3qm32salaudsjcqd</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>353339718708-nf4vd6vp1j7kc222sl6igs4amhf8undj.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBCnp3lKmzhVQiVEjBfmIm5bvnSp7dhOI8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>353339718708</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.lucianzaharia.myluxurynewspaper</string>
+	<key>PROJECT_ID</key>
+	<string>luxury-newspaper</string>
+	<key>STORAGE_BUCKET</key>
+	<string>luxury-newspaper.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:353339718708:ios:5d6b41a93a59bd31af9e61</string>
+	<key>DATABASE_URL</key>
+	<string>https://luxury-newspaper.firebaseio.com</string>
+</dict>
+</plist>
