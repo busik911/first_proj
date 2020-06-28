@@ -5,16 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:myluxurynewspaper/screens/messagesReplay_screen.dart';
 
-class MessagesScreen extends StatelessWidget {
-  final String documentID;
-  final String title;
-  final String userName;
-  final DocumentSnapshot documentSnapshot;
-  MessagesScreen(
-      {@required this.documentID,
-      this.title,
-      this.userName,
-      @required this.documentSnapshot});
+
+class MessagesReplay extends StatelessWidget {
+  final String firstDocID;
+  final String secondDodId;
+  final String username;
+  MessagesReplay(this.firstDocID,this.secondDodId,this.username);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,18 +39,13 @@ class MessagesScreen extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 30.0),
-            ),
             Expanded(
               child: StreamBuilder(
                 stream: Firestore.instance
                     .collection('forumTopics')
-                    .document('$documentID')
-                    .collection('forumComments')
-                    .orderBy('commentNumber')
+                    .document('$firstDocID')
+                    .collection('forumComments').document('$secondDodId').collection('forumCommentsReply')
+                    .orderBy('commentNumber',descending: true)
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -62,9 +53,7 @@ class MessagesScreen extends StatelessWidget {
                     return new Text('Error: ${snapshot.error}');
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
-                      return new Center(
-                        child: CircularProgressIndicator(),
-                      );
+                      return new Center(child:CircularProgressIndicator() ,);
                     default:
                       return ListView.builder(
                           scrollDirection: Axis.vertical,
@@ -72,12 +61,13 @@ class MessagesScreen extends StatelessWidget {
                           itemCount: snapshot.data.documents.length,
                           itemBuilder: (context, index) {
                             DocumentSnapshot topic =
-                                snapshot.data.documents[index];
+                            snapshot.data.documents[index];
                             return MessageBox(
                               comment: '${topic['comment']}',
                               document: topic,
-                              userName: this.userName,
-                              firstDocID: documentID,
+                              userName: this.username,
+                              secondDocuID: secondDodId,
+                              firstDocID: firstDocID,
                             );
                           });
                   }
@@ -89,7 +79,6 @@ class MessagesScreen extends StatelessWidget {
       ),
     );
   }
-
   void _showModalBottomSheet(context) {
     String newComment;
     showModalBottomSheet(
@@ -130,25 +119,23 @@ class MessagesScreen extends StatelessWidget {
                         int queueOrder;
                         Firestore.instance
                             .collection('forumTopics')
-                            .document('$documentID')
-                            .collection('forumComments')
+                            .document('$firstDocID')
+                            .collection('forumComments').document('$secondDodId').collection('forumCommentsReply')
                             .getDocuments()
                             .then((value) => {
-                                  queueOrder = value.documents.length,
-                                  Firestore.instance
-                                      .collection('forumTopics')
-                                      .document('$documentID')
-                                      .collection('forumComments')
-                                      .add({
-                                    'comment': newComment,
-                                    'commentNumber': queueOrder + 1,
-                                    'like': 0,
-                                    'dislike': 0,
-                                    'userName': this.userName
-                                  }),
-                                });
-                        documentSnapshot.reference.updateData(
-                            {'comments': documentSnapshot['comments'] + 1});
+                          queueOrder = value.documents.length,
+                          Firestore.instance
+                              .collection('forumTopics')
+                              .document('$firstDocID')
+                              .collection('forumComments').document('$secondDodId').collection('forumCommentsReply')
+                              .add({
+                            'comment': newComment,
+                            'commentNumber': queueOrder + 1,
+                            'like': 0,
+                            'dislike': 0,
+                            'userName':username
+                          }),
+                        });
                         Navigator.pop(context);
                       },
                       child: Text(
@@ -170,9 +157,10 @@ class MessageBox extends StatefulWidget {
   final String comment;
   final String userName;
   final DocumentSnapshot document;
+  final String secondDocuID;
   final String firstDocID;
   MessageBox(
-      {@required this.comment, this.userName, this.document, this.firstDocID});
+      {@required this.comment, this.userName, this.document, this.firstDocID,this.secondDocuID});
 
   @override
   _MessageBoxState createState() => _MessageBoxState();
@@ -263,7 +251,7 @@ class _MessageBoxState extends State<MessageBox> {
                     ),
                     Visibility(
                       visible: '${widget.document['userName']}' ==
-                              '${widget.userName}'
+                          '${widget.userName}'
                           ? true
                           : false,
                       child: IconButton(
@@ -276,7 +264,7 @@ class _MessageBoxState extends State<MessageBox> {
                                 .collection('forumTopics')
                                 .document('${widget.firstDocID}')
                                 .collection('forumComments')
-                                .document('${widget.document.documentID}')
+                                .document('${widget.secondDocuID}').collection('forumCommentsReply').document('${widget.document.documentID}')
                                 .delete();
                           }),
                     ),
@@ -295,27 +283,9 @@ class _MessageBoxState extends State<MessageBox> {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(20.0),
                       bottomRight: Radius.circular(20.0))),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(widget.comment),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      IconButton(icon: Icon(Icons.reply),
-                          onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>MessagesReplay(widget.firstDocID,widget.document.documentID,widget.userName)));
-                          }),
-                    ],
-                  )
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(widget.comment),
               ),
             ),
           ],

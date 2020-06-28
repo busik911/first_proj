@@ -13,38 +13,52 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartScreenState extends State<StartScreen> {
-
-final FirebaseMessaging _firebaseMessaging=FirebaseMessaging();
-
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
 
 
-_configureFirebaseListeners(){
-_firebaseMessaging.configure(
-    onMessage:(Map<String,dynamic>message)async {
-      print('onMessage:$message');
-    },
-    onLaunch:(Map<String,dynamic>message)async {
-    print('onLunch:$message');
-  },
-   onResume:(Map<String,dynamic>message)async {
-    print('onResume:$message');
-  },
-);
+ static Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
+    if (message.containsKey('data')) {
+      // Handle data message
+      final dynamic data = message['data'];
+    }
+
+    if (message.containsKey('notification')) {
+      // Handle notification message
+      final dynamic notification = message['notification'];
+    }
+
+    // Or do other work.
+  }
+
+  _configureFirebaseListeners() {
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('onMessage:$message');
+        final snackbar = SnackBar(
+          content: Text(message['notification']['title']),
+          action: SnackBarAction(label: 'GO', onPressed: () => null),
+        );
+        Scaffold.of(context).showSnackBar(snackbar);
+      },
+      onBackgroundMessage: myBackgroundMessageHandler,
+      onLaunch: (Map<String, dynamic> message) async {
+        print('onLunch:$message');
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print('onResume:$message');
+      },
+    );
 // _firebaseMessaging.getToken().then((token) {
 //   print(token);
 // });
- _firebaseMessaging.subscribeToTopic('all');
+    _firebaseMessaging.subscribeToTopic('all');
+  }
 
-}
-
-
-@override
+  @override
   void initState() {
     super.initState();
     _configureFirebaseListeners();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -124,13 +138,13 @@ _firebaseMessaging.configure(
   }
 }
 
-class Message{
+class Message {
   String title;
   String body;
   String message;
-  Message(title,body,message){
-    this.title=title;
-    this.body=body;
-    this.message=message;
+  Message(title, body, message) {
+    this.title = title;
+    this.body = body;
+    this.message = message;
   }
 }

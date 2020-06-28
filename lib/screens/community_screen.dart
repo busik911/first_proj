@@ -1,3 +1,4 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -66,20 +67,23 @@ class _CommunityForumState extends State<CommunityForum>
       child: Scaffold(
         floatingActionButton: ScaleTransition(
           scale: _hideFabAnimation,
-          child: FloatingActionButton.extended(
-            onPressed: () {
-              _showModalBottomSheet(context);
-            },
-            icon:Icon(
-              Icons.add,
-              size: 20.0,
+          child: Visibility(
+            visible: false,
+            child: FloatingActionButton.extended(
+              onPressed: () {
+                _showModalBottomSheet(context);
+              },
+              icon:Icon(
+                Icons.add,
+                size: 20.0,
+              ),
+              label:Text(
+                'Add Topic',
+                style: TextStyle(color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              backgroundColor: Colors.deepPurple,
             ),
-            label:Text(
-              'Add Topic',
-              style: TextStyle(color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-            backgroundColor: Colors.deepPurple,
           ),
         ),
         appBar: AppBar(
@@ -271,6 +275,7 @@ class _TopicTileState extends State<TopicTile>
     with SingleTickerProviderStateMixin {
   String documentID;
   String title;
+
 
   AnimationController _animationController;
   @override
